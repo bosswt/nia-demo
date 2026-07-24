@@ -16,7 +16,7 @@ Bun.serve({
             execute: async ({ writer }) => {
                 writer.write({ type: "start" })
                 writer.write({ type: "text-start", id })
-                writer.write({ type: "text-delta", id, delta: "คำตอบจำลอง 55555" })
+                writer.write({ type: "text-delta", id, delta: "คำตอบจำลอง 55555" + body.messages.at(-1).parts.at(-1).text })
                 writer.write({ type: "text-end", id })
                 writer.write({ type: "finish" })
             }

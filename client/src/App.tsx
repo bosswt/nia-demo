@@ -22,13 +22,14 @@ function App() {
 
 
   return (
-    <div>
-      <header>
+    <div className="app">
+      <header className="header">
         <div>
           <h1>Chat with AI</h1>
+          <p className="sub">AI Assistant</p>
         </div>
       </header>
-      <main>
+      <main className="messages">
         <div>
           {messages.map((message) => {
             const textParts = message.parts.filter((p: any) => p.type === "text")
@@ -40,11 +41,11 @@ function App() {
             )
           })}
         </div>
-        <form className="chat-from" onSubmit={handleSubmit}>
-          <input value={input} onChange={(e) => setInput(e.target.value)}></input>
-          <button type="submit">Submit</button>
-        </form>
       </main>
+      <form className="composer" onSubmit={handleSubmit}>
+        <input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Ask me..."></input>
+        <button type="submit">Submit</button>
+      </form>
     </div>
   )
 }
