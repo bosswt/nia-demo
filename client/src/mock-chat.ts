@@ -7,8 +7,10 @@ const CORS = {
 }
 
 Bun.serve({
-    port: 4111, fetch(req) {
+    port: 4111, async fetch(req) {
         if (req.method === "OPTIONS") return new Response(null, { headers: CORS })
+        const body = await req.json()
+        console.log(body.messages.at(-1))
         const id = generateId();
         const s = createUIMessageStream({
             execute: async ({ writer }) => {
