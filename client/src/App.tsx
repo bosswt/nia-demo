@@ -2,6 +2,7 @@ import './App.css'
 import { useChat } from "@ai-sdk/react"
 import { DefaultChatTransport } from 'ai'
 import { useMemo, useState } from 'react'
+import { Streamdown } from "streamdown"
 
 function App() {
   const { messages, sendMessage, status, stop, error, regenerate, setMessages, clearError } = useChat({
@@ -30,17 +31,18 @@ function App() {
         </div>
       </header>
       <main className="messages">
-        <div>
-          {messages.map((message) => {
-            const textParts = message.parts.filter((p: any) => p.type === "text")
-            const text = textParts.map((p: any) => p.text).join("")
-            return (
-              <div key={message.id}>
-                <p>{message.role}: {text}</p>
+        {messages.map((message) => {
+          const textParts = message.parts.filter((p: any) => p.type === "text")
+          const text = textParts.map((p: any) => p.text).join("")
+          return (
+            <div key={message.id} className={`row ${message.role}`}>
+              <div className="bubble">
+                <div className="role-tag">{message.role}</div>
+                {message.role === 'assistant' ? <Streamdown>{text}</Streamdown> : <p>{text}</p>}
               </div>
-            )
-          })}
-        </div>
+            </div>
+          )
+        })}
       </main>
       <form className="composer" onSubmit={handleSubmit}>
         <input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Ask me..."></input>
